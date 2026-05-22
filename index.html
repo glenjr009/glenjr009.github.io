@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cybersecurity portfolio of Glen Fernandes aka cyb3rPh03n1x." />
+  <title>Glen Fernandes | cyb3rPh03n1x</title>
+
+  <style>
+    :root {
+      --bg: #020403;
+      --panel: rgba(8, 15, 13, 0.94);
+      --green: #00ff88;
+      --cyan: #48eaff;
+      --white: #f3fff8;
+      --text: #d8ffe9;
+      --muted: #91aa9c;
+      --warning: #ffd166;
+      --border: rgba(0, 255, 136, 0.25);
+      --shadow: 0 0 35px rgba(0, 255, 136, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(0,255,136,0.08), transparent 25%),
+        radial-gradient(circle at 90% 20%, rgba(72,234,255,0.08), transparent 25%),
+        linear-gradient(135deg, #010201, #020403);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--green);
+      text-shadow: 0 0 10px var(--green);
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(2, 4, 3, 0.9);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 16px 0;
+    }
+
+    .logo {
+      color: var(--green);
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.92rem;
+    }
+
+    .terminal-window {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 13px 17px;
+      background: #020605;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .red { background: #ff5f56; }
+    .yellow { background: #ffbd2e; }
+    .green-dot { background: #27c93f; }
+
+    .bar-title {
+      margin-left: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .hero {
+      padding: 70px 0 40px;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 30px;
+      align-items: center;
+      padding: 38px;
+    }
+
+    .prompt {
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4.8rem);
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 14px;
+      text-shadow: 0 0 24px rgba(0,255,136,0.25);
+    }
+
+    .handle {
+      color: var(--cyan);
+      font-size: 1.25rem;
+      margin-bottom: 18px;
+    }
+
+    .tagline {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 26px;
+      max-width: 760px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      min-height: 44px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(0,255,136,0.08);
+      color: var(--text);
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: rgba(0,255,136,0.15);
+    }
+
+    .btn.primary {
+      background: var(--green);
+      color: #02140c;
+      font-weight: bold;
+    }
+
+    .profile-card {
+      padding: 24px;
+      background: rgba(13,25,22,0.95);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .avatar {
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      border: 2px solid var(--green);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 20px;
+      font-size: 2.8rem;
+      box-shadow: 0 0 30px rgba(0,255,136,0.25);
+    }
+
+    .status {
+      border-top: 1px dashed var(--border);
+      padding-top: 16px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .status span {
+      color: var(--green);
+    }
+
+    section {
+      padding: 36px 0;
+    }
+
+    .section-title {
+      font-size: 1.55rem;
+      margin-bottom: 20px;
+      color: var(--green);
+    }
+
+    .section-title::before {
+      content: "$ ";
+      color: var(--cyan);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 22px;
+      background: rgba(8,15,13,0.9);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      transition: 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0,255,136,0.55);
+    }
+
+    .card h3 {
+      color: var(--white);
+      margin-bottom: 10px;
+      font-size: 1.08rem;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .badge {
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--green);
+      background: rgba(0,255,136,0.06);
+      font-size: 0.82rem;
+    }
+
+    .timeline {
+      border-left: 1px solid var(--border);
+      padding-left: 20px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 22px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--green);
+      position: absolute;
+      left: -26px;
+      top: 8px;
+      box-shadow: 0 0 14px var(--green);
+    }
+
+    .timeline-item small {
+      color: var(--cyan);
+    }
+
+    .command-box {
+      padding: 20px;
+      background: #020504;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--muted);
+      overflow-x: auto;
+    }
+
+    .cmd {
+      color: var(--green);
+    }
+
+    .warning {
+      color: var(--warning);
+    }
+
+    .footer {
+      padding: 34px 0 50px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 9px;
+      height: 1.1rem;
+      background: var(--green);
+      margin-left: 5px;
+      animation: blink 0.9s steps(2, start) infinite;
+      transform: translateY(3px);
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    @media (max-width: 860px) {
+      .hero-content,
+      .grid,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-content {
+        padding: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="container nav-inner">
+      <div class="logo">cyb3rPh03n1x@portfolio:~$</div>
+      <div class="nav-links">
+        <a href="#about">whoami</a>
+        <a href="#skills">skills</a>
+        <a href="#projects">projects</a>
+        <a href="#journey">journey</a>
+        <a href="#certs">certs</a>
+        <a href="#contact">contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container terminal-window">
+        <div class="terminal-bar">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green-dot"></span>
+          <span class="bar-title">/home/glen/portfolio</span>
+        </div>
+
+        <div class="hero-content">
+          <div>
+            <p class="prompt">root@cybersec:~# ./launch-profile.sh</p>
+            <h1>Glen Fernandes</h1>
+            <p class="handle">aka cyb3rPh03n1x</p>
+            <p class="tagline">
+              Aspiring Cybersecurity Professional, CSE student, CTF player, and TryHackMe learner focused on web security, network security, threat detection, and hands-on offensive security practice.
+            </p>
+
+            <div class="cta-row">
+              <a class="btn primary" href="#contact">Hire / Collaborate</a>
+              <a class="btn" href="https://github.com/glenjr009" target="_blank">GitHub</a>
+              <a class="btn" href="https://tryhackme.com/p/cyb3rPh03n1x" target="_blank">TryHackMe</a>
+              <a class="btn" href="https://www.linkedin.com/in/glen-ferns/" target="_blank">LinkedIn</a>
+            </div>
+          </div>
+
+          <aside class="profile-card">
+            <div class="avatar">☠️</div>
+            <div class="status">
+              <p><span>Status:</span> Open to cybersecurity internships</p>
+              <p><span>Education:</span> CSE, 6th semester</p>
+              <p><span>Focus:</span> Penetration Testing + Threat Analysis</p>
+              <p><span>Mode:</span> Learning. Building. Hacking ethically.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">whoami</h2>
+        <div class="terminal-window">
+          <div class="terminal-bar">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green-dot"></span>
+            <span class="bar-title">cat about.md</span>
+          </div>
+
+          <div class="card">
+            <p>
+              I am Glen Fernandes, also known as <strong>cyb3rPh03n1x</strong>, a Computer Science Engineering student currently in my 6th semester. My cybersecurity journey started with CTFs, where curiosity turned into hands-on learning. Since then, I have been building skills through TryHackMe labs, security projects, and practical exploration of tools used in ethical hacking and digital defense.
+            </p>
+            <br />
+            <p>
+              I enjoy solving security challenges, understanding how attacks work, and building systems that can detect, analyze, and defend against threats. I am currently looking for internship opportunities where I can learn from real-world security work and contribute with strong curiosity, consistency, and hands-on practice.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">ls skills/</h2>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Offensive Security</h3>
+            <ul>
+              <li>Reconnaissance and enumeration</li>
+              <li>Web exploitation basics</li>
+              <li>Privilege escalation practice</li>
+              <li>CTF methodology</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Tools & Platforms</h3>
+            <ul>
+              <li>Kali Linux</li>
+              <li>Nmap, Gobuster, Netcat</li>
+              <li>Burp Suite basics</li>
+              <li>TryHackMe labs</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Development</h3>
+            <ul>
+              <li>Python scripting</li>
+              <li>Git and GitHub</li>
+              <li>HTML, CSS, JavaScript</li>
+              <li>Security automation basics</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">cd projects && ls -la</h2>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Asynchronous Email Forensic Gateway</h3>
+            <p>
+              A cybersecurity-focused project designed to analyze suspicious emails using forensic checks, threat intelligence, and machine learning. The goal is to identify phishing, spoofing, malicious indicators, and risky email behavior more effectively.
+            </p>
+            <div class="badge-row">
+              <span class="badge">Email Forensics</span>
+              <span class="badge">Threat Intelligence</span>
+              <span class="badge">Machine Learning</span>
+              <span class="badge">Python</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Password Strength Checker</h3>
+            <p>
+              A security utility that evaluates password strength based on length, complexity, and common password safety rules. Useful for understanding secure authentication practices.
+            </p>
+            <div class="badge-row">
+              <span class="badge">Python</span>
+              <span class="badge">Security Basics</span>
+              <span class="badge">Authentication</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Email Spoofing Detector</h3>
+            <p>
+              A project focused on detecting signs of spoofed emails by checking sender details, headers, and suspicious indicators commonly found in phishing attempts.
+            </p>
+            <div class="badge-row">
+              <span class="badge">Email Security</span>
+              <span class="badge">Header Analysis</span>
+              <span class="badge">Phishing Detection</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>CTF Writeups & Labs</h3>
+            <p>
+              A growing collection of learning notes and challenge approaches from CTFs, TryHackMe rooms, web exploitation, OSINT, forensics, and boot2root practice.
+            </p>
+            <div class="badge-row">
+              <span class="badge">CTF</span>
+              <span class="badge">TryHackMe</span>
+              <span class="badge">Writeups</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="journey">
+      <div class="container">
+        <h2 class="section-title">cat cyber-journey.log</h2>
+
+        <div class="card timeline">
+          <div class="timeline-item">
+            <small>Phase 01</small>
+            <h3>Started with CTFs</h3>
+            <p>Entered cybersecurity through capture-the-flag challenges and developed interest by solving real security puzzles.</p>
+          </div>
+
+          <div class="timeline-item">
+            <small>Phase 02</small>
+            <h3>Hands-on labs on TryHackMe</h3>
+            <p>Practicing rooms related to penetration testing, Linux, web exploitation, networking, and security fundamentals.</p>
+          </div>
+
+          <div class="timeline-item">
+            <small>Phase 03</small>
+            <h3>Building security projects</h3>
+            <p>Working on practical cybersecurity projects involving email forensics, threat detection, and machine learning.</p>
+          </div>
+
+          <div class="timeline-item">
+            <small>Current</small>
+            <h3>Open to internship opportunities</h3>
+            <p>Looking to contribute, learn, and grow in cybersecurity teams focused on ethical hacking, SOC, threat analysis, or application security.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certs">
+      <div class="container">
+        <h2 class="section-title">cat certifications.md</h2>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>TryHackMe Jr Penetration Tester</h3>
+            <p>
+              Certification focused on practical penetration testing fundamentals including enumeration, exploitation basics, web attacks, and security assessment workflow.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Learning Stack</h3>
+            <p>
+              TryHackMe practice, CTF challenges, GitHub projects, and continuous hands-on cybersecurity learning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">ping contact</h2>
+
+        <div class="terminal-window">
+          <div class="terminal-bar">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green-dot"></span>
+            <span class="bar-title">contact.sh</span>
+          </div>
+
+          <div class="card">
+            <div class="command-box">
+              <p><span class="cmd">$ mail --to</span> <a href="mailto:glenwil2005@gmail.com">glenwil2005@gmail.com</a></p>
+              <p><span class="cmd">$ open github</span> <a href="https://github.com/glenjr009" target="_blank">github.com/glenjr009</a></p>
+              <p><span class="cmd">$ open tryhackme</span> <a href="https://tryhackme.com/p/cyb3rPh03n1x" target="_blank">tryhackme.com/p/cyb3rPh03n1x</a></p>
+              <p><span class="cmd">$ open linkedin</span> <a href="https://www.linkedin.com/in/glen-ferns/" target="_blank">linkedin.com/in/glen-ferns</a></p>
+              <p><span class="cmd">$ resume</span> <span class="warning">Add resume.pdf later and link it here.</span></p>
+            </div>
+
+            <br />
+            <a class="btn primary" href="mailto:glenwil2005@gmail.com">Send Email</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Built by Glen Fernandes · cyb3rPh03n1x <span class="cursor"></span></p>
+    </div>
+  </footer>
+
+  <script>
+    const title = document.querySelector("h1");
+    const text = "Glen Fernandes";
+    let i = 0;
+
+    function typeName() {
+      if (i <= text.length) {
+        title.textContent = text.slice(0, i);
+        i++;
+        setTimeout(typeName, 90);
+      }
+    }
+
+    window.addEventListener("load", () => {
+      title.textContent = "";
+      typeName();
+    });
+  </script>
+</body>
+</html>
